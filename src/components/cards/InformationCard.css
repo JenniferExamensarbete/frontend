@@ -1,0 +1,13 @@
+.information-card {
+  min-height: 230px;
+}
+
+.information-header h3 {
+  font-size: 1.1rem;
+}
+
+.information-header p {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted-color);
+  font-size: 0.9rem;
+}

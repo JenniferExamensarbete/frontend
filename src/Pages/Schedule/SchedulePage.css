@@ -1,0 +1,16 @@
+.empty-state {
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: var(--blue-accent);
+}
+
+.empty-state p {
+  color: var(--text-muted-color);
+}

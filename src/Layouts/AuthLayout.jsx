@@ -1,4 +1,3 @@
-import React from 'react'
 
 function AuthLayout() {
   return (
@@ -6,4 +5,4 @@ function AuthLayout() {
   )
 }
 
-export default AuthLayout
+export default AuthLayout;

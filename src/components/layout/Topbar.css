@@ -1,0 +1,63 @@
+.topbar {
+  grid-area: topbar;
+  background-color: var(--white-100);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2rem;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--gray-800);
+}
+
+.search-form input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-button,
+.account-button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.icon-button {
+  font-size: 1.2rem;
+  color: var(--gray-800);
+}
+
+.account-menu {
+  position: relative;
+}
+
+.account-button span {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--blue-accent);
+  color: var(--white-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.account-info {
+  display: grid;
+}

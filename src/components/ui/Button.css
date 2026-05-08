@@ -1,0 +1,32 @@
+.btn {
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  padding: 0.8rem 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--btn-background-color);
+  color: var(--btn-text-color);
+  box-shadow: var(--blue-box-shadow);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-hover-background-color);
+}
+
+.btn-secondary {
+  background-color: var(--white-200);
+  color: var(--dark-400);
+}
+
+.btn-danger {
+  background-color: var(--red-light);
+  color: var(--red-dark);
+}

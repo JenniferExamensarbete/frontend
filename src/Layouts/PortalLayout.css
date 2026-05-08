@@ -1,0 +1,57 @@
+.portal-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas:
+    "logo topbar"
+    "sidebar main";
+  min-height: 100vh;
+}
+
+.portal-logo {
+  grid-area: logo;
+  background-color: var(--white-100);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+
+.memories-logotype {
+  font-family: var(--font-logo);
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background-color: var(--blue-accent);
+  color: var(--white-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portal-main {
+  grid-area: main;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+  .portal-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    grid-template-areas:
+      "logo"
+      "topbar"
+      "sidebar"
+      "main";
+  }
+}

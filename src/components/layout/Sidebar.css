@@ -1,0 +1,28 @@
+.sidebar {
+  grid-area: sidebar;
+  background-color: var(--white-100);
+  border-right: 1px solid var(--border-color);
+  padding: 1.5rem 1rem;
+}
+
+.sidebar-nav {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sidebar-link {
+  font-weight: 700;
+  color: var(--dark-400);
+  border-radius: var(--border-radius);
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  color: var(--blue-accent);
+  background-color: var(--blue-accent-10);
+}

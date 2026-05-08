@@ -1,0 +1,14 @@
+.form-textarea {
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  border: 1px solid var(--gray-400);
+  border-radius: var(--border-radius);
+  padding: 0.8rem;
+  outline: none;
+}
+
+.form-textarea:focus {
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 0.2rem var(--blue-accent-10);
+}

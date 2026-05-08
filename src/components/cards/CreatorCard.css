@@ -1,0 +1,34 @@
+.creator-card {
+  min-height: 300px;
+}
+
+.creator-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+
+.creator-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--border-radius);
+  background-color: var(--blue-accent-10);
+  color: var(--blue-dark-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.creator-header h3 {
+  font-size: 1.1rem;
+}
+
+.creator-header p {
+  margin: 0.2rem 0 0;
+  color: var(--text-muted-color);
+}
+
+.creator-body p {
+  margin: 0.6rem 0;
+}

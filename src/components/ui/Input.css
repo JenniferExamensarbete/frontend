@@ -1,0 +1,24 @@
+.form-group {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 100%;
+  border: 1px solid var(--gray-400);
+  border-radius: var(--border-radius);
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  background-color: var(--white-100);
+}
+
+.form-input:focus {
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 0.2rem var(--blue-accent-10);
+}

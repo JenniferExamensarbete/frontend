@@ -1,0 +1,29 @@
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 700px;
+}
+
+.profile-avatar-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 30px;
+  background-color: var(--blue-accent-10);
+  color: var(--blue-dark-accent);
+  font-size: 2.2rem;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-info {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.profile-info p {
+  color: var(--text-muted-color);
+  margin: 0;
+}

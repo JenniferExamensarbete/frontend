@@ -1,9 +1,15 @@
-import React from 'react'
+import { createContext, useContext } from "react";
 
-function AuthContext() {
+const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
   return (
-    <div>AuthContext</div>
-  )
+    <AuthContext.Provider value={{}}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
-export default AuthContext
+export function useAuth() {
+  return useContext(AuthContext);
+}
