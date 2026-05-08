@@ -17,6 +17,7 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     login(formData.email, formData.password);
     navigate("/");
   };
@@ -38,6 +39,7 @@ function LoginPage() {
             type="email"
             placeholder="Din emailadress"
           />
+
           <Input
             label="Lösenord"
             name="password"
