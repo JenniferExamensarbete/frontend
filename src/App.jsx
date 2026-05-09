@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import PortalLayout from "./Layouts/PortalLayout.jsx";
-import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
+import PortalLayout from "./layouts/PortalLayout.jsx";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
 import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
 import TeamPage from "./pages/Team/TeamPage.jsx";

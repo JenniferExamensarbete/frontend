@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fakeCreators } from "../../Data/FakeData.js";
+import { fakeCreators } from "../../data/fakeData.js";
 import Button from "../../components/ui/Button.jsx";
 import CreatorCard from "../../components/cards/CreatorCard.jsx";
 import CreatorModal from "../../components/modals/CreatorModal.jsx";
