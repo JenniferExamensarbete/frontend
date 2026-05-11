@@ -1,6 +1,30 @@
+
 * {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-standard);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
   font-family: inherit;
 }
+
 
 button {
   border: none;

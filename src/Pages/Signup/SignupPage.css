@@ -1,1 +1,9 @@
 @import url("../Login/LoginPage.css");
+
+.auth-success {
+  color: var(--green-dark);
+  background-color: var(--green-light);
+  padding: 0.8rem;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+}

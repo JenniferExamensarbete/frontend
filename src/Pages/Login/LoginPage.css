@@ -31,3 +31,11 @@
   color: var(--blue-accent);
   font-weight: 800;
 }
+
+.auth-error {
+  color: var(--red-dark);
+  background-color: var(--red-light);
+  padding: 0.8rem;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+}

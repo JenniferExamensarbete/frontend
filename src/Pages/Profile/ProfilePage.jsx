@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Button from "../../components/ui/Button.jsx";
 import ProfileModal from "../../components/modals/ProfileModal.jsx";
-import Badge from "../../components/ui/Badges.jsx";
+import Badge from "../../components/ui/Badge.jsx";
 import "./ProfilePage.css";
 
 function ProfilePage() {

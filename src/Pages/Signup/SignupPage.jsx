@@ -1,25 +1,54 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 import Input from "../../components/ui/Input.jsx";
 import Button from "../../components/ui/Button.jsx";
 import "./SignupPage.css";
 
 function SignupPage() {
   const navigate = useNavigate();
+  const { signup } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
+    firstName: "",
+    lastName: "",
   });
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/login");
+
+    setError("");
+    setSuccess("");
+    setLoading(true);
+
+    try {
+      await signup(formData);
+      setSuccess("Konto skapat! Du kan nu logga in.");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    } catch (err) {
+      setError("Kunde inte skapa konto. Kontrollera uppgifterna.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,6 +61,22 @@ function SignupPage() {
 
         <form onSubmit={handleSubmit}>
           <Input
+            label="Förnamn"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="Ditt förnamn"
+          />
+
+          <Input
+            label="Efternamn"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Ditt efternamn"
+          />
+
+          <Input
             label="Email"
             name="email"
             value={formData.email}
@@ -39,6 +84,7 @@ function SignupPage() {
             type="email"
             placeholder="Din emailadress"
           />
+
           <Input
             label="Lösenord"
             name="password"
@@ -47,6 +93,7 @@ function SignupPage() {
             type="password"
             placeholder="Välj lösenord"
           />
+
           <Input
             label="Bekräfta lösenord"
             name="confirmPassword"
@@ -56,7 +103,12 @@ function SignupPage() {
             placeholder="Bekräfta lösenord"
           />
 
-          <Button type="submit">Skapa konto</Button>
+          {error && <p className="auth-error">{error}</p>}
+          {success && <p className="auth-success">{success}</p>}
+
+          <Button type="submit">
+            {loading ? "Skapar konto..." : "Skapa konto"}
+          </Button>
         </form>
 
         <p className="auth-link">

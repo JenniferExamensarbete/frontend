@@ -8,18 +8,38 @@ import "./LoginPage.css";
 function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    login(formData.email, formData.password);
-    navigate("/");
+    setError("");
+    setLoading(true);
+
+    try {
+      await login(formData.email, formData.password);
+      navigate("/");
+    } catch (err) {
+      setError("Fel email eller lösenord.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,7 +69,11 @@ function LoginPage() {
             placeholder="Ditt lösenord"
           />
 
-          <Button type="submit">Logga in</Button>
+          {error && <p className="auth-error">{error}</p>}
+
+          <Button type="submit">
+            {loading ? "Loggar in..." : "Logga in"}
+          </Button>
         </form>
 
         <p className="auth-link">

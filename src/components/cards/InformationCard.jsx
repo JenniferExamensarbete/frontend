@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Dropdown from "../ui/Dropdown.jsx";
-import Badge from "../ui/Badges.jsx";
+import Badge from "../ui/Badge.jsx";
 import "./InformationCard.css";
 
 function InformationCard({ information, onEdit, onDelete }) {

@@ -1,15 +1,19 @@
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 import Dropdown from "../ui/Dropdown.jsx";
-import Badge from "../ui/Badges.jsx";
+import Badge from "../ui/Badge.jsx";
 import "./CreatorCard.css";
 
 function CreatorCard({ creator, onEdit, onDelete }) {
   const [open, setOpen] = useState(false);
+  const { isAdmin } = useAuth();
 
   return (
     <article className="card creator-card">
       <div className="card-header creator-header">
-        <div className="creator-avatar">{creator.name.charAt(0)}</div>
+        <div className="creator-avatar">
+          {creator.name?.charAt(0)}
+        </div>
 
         <div>
           <h3>{creator.name}</h3>
@@ -32,19 +36,23 @@ function CreatorCard({ creator, onEdit, onDelete }) {
               onClick={() => onEdit(creator)}
             >
               <i className="fa-solid fa-pen-to-square"></i>
-              Redigera
+              Redigera / uppdatera
             </button>
 
-            <div className="divider"></div>
+            {isAdmin && (
+              <>
+                <div className="divider"></div>
 
-            <button
-              className="dropdown-action remove"
-              type="button"
-              onClick={() => onDelete(creator.id)}
-            >
-              <i className="fa-solid fa-trash-can"></i>
-              Ta bort
-            </button>
+                <button
+                  className="dropdown-action remove"
+                  type="button"
+                  onClick={() => onDelete(creator.id)}
+                >
+                  <i className="fa-solid fa-trash-can"></i>
+                  Ta bort
+                </button>
+              </>
+            )}
           </Dropdown>
         </div>
       </div>
@@ -53,9 +61,15 @@ function CreatorCard({ creator, onEdit, onDelete }) {
         <p>
           <strong>Ålder:</strong> {creator.age}
         </p>
+
+        <p>
+          <strong>Bor:</strong> {creator.location}
+        </p>
+
         <p>
           <strong>Intressen:</strong> {creator.interests}
         </p>
+
         <p>
           <strong>Övrigt:</strong> {creator.notes}
         </p>
