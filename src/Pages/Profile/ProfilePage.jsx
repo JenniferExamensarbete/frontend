@@ -1,13 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Button from "../../components/ui/Button.jsx";
 import ProfileModal from "../../components/modals/ProfileModal.jsx";
 import Badge from "../../components/ui/Badge.jsx";
+import {
+  createProfile,
+  getProfile,
+  updateProfile,
+} from "../../services/profileService.js";
 import "./ProfilePage.css";
 
 function ProfilePage() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+
+  const [profile, setProfile] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const loadProfile = async () => {
+    try {
+      const result = await getProfile(user.id);
+
+      if (result.success) {
+        setProfile(result.result);
+      }
+    } catch {
+      const newProfile = {
+        authUserId: user.id,
+        email: user.email,
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        phone: user.phone || "",
+        imageUrl: "",
+      };
+
+      const result = await createProfile(newProfile);
+
+      if (result.success) {
+        const loadedProfile = await getProfile(user.id);
+        setProfile(loadedProfile.result);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      loadProfile();
+    }
+  }, [user?.id]);
+
+  const handleSaveProfile = async (data) => {
+    const result = await updateProfile(user.id, data);
+
+    if (result.success) {
+      const updated = await getProfile(user.id);
+      setProfile(updated.result);
+
+      setUser((prev) => ({
+        ...prev,
+        firstName: updated.result.firstName,
+        lastName: updated.result.lastName,
+        phone: updated.result.phone,
+      }));
+
+      setModalOpen(false);
+    }
+  };
+
+  if (loading) {
+    return <p>Laddar profil...</p>;
+  }
 
   return (
     <section className="page profile-page">
@@ -25,21 +89,27 @@ function ProfilePage() {
 
       <div className="profile-card card">
         <div className="profile-avatar-large">
-          {user?.firstName?.charAt(0)}
-          {user?.lastName?.charAt(0)}
+          {profile?.firstName?.charAt(0)}
+          {profile?.lastName?.charAt(0)}
         </div>
 
         <div className="profile-info">
           <h2>
-            {user?.firstName} {user?.lastName}
+            {profile?.firstName} {profile?.lastName}
           </h2>
-          <p>{user?.email}</p>
-          <p>{user?.phone}</p>
+          <p>{profile?.email}</p>
+          <p>{profile?.phone}</p>
           <Badge variant="normal">{user?.role}</Badge>
         </div>
       </div>
 
-      {modalOpen && <ProfileModal onClose={() => setModalOpen(false)} />}
+      {modalOpen && (
+        <ProfileModal
+          profile={profile}
+          onClose={() => setModalOpen(false)}
+          onSave={handleSaveProfile}
+        />
+      )}
     </section>
   );
 }
