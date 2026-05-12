@@ -58,7 +58,7 @@ function InformationCard({ information, onEdit, onDelete }) {
       <div className="card-footer">
         <Badge variant="normal">
           <i className="fa-solid fa-calendar"></i>
-          {information.createdAt}
+          {new Date(information.createdAt).toLocaleDateString("sv-SE")}
         </Badge>
       </div>
     </article>

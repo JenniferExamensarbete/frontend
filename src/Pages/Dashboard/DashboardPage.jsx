@@ -1,17 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext.jsx";
-import { fakeInformation } from "../../data/fakeData.js";
 import Button from "../../components/ui/Button.jsx";
 import InformationCard from "../../components/cards/InformationCard.jsx";
 import InformationModal from "../../components/modals/InformationModal.jsx";
+import {
+  createInformation,
+  deleteInformation,
+  getAllInformation,
+  updateInformation,
+} from "../../services/informationService.js";
 import "./DashboardPage.css";
 
 function DashboardPage() {
   const { user, isAdmin } = useAuth();
 
-  const [informationList, setInformationList] = useState(fakeInformation);
+  const [informationList, setInformationList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingInformation, setEditingInformation] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const loadInformation = async () => {
+    try {
+      const result = await getAllInformation();
+
+      if (result.success) {
+        setInformationList(result.result || []);
+      }
+    } catch (error) {
+      console.error("Could not load information:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadInformation();
+  }, []);
 
   const openAddModal = () => {
     setEditingInformation(null);
@@ -23,30 +47,41 @@ function DashboardPage() {
     setModalOpen(true);
   };
 
-  const handleSave = (data) => {
-    if (editingInformation) {
-      setInformationList((prev) =>
-        prev.map((item) =>
-          item.id === editingInformation.id ? { ...item, ...data } : item
-        )
-      );
-    } else {
-      const newInformation = {
-        ...data,
-        id: Date.now(),
-        createdAt: new Date().toISOString().slice(0, 10),
-        createdBy: `${user.firstName} ${user.lastName}`,
-      };
+  const handleSave = async (data) => {
+    try {
+      if (editingInformation) {
+        await updateInformation(editingInformation.id, {
+          title: data.title,
+          text: data.text,
+        });
+      } else {
+        await createInformation({
+          title: data.title,
+          text: data.text,
+          createdBy: `${user.firstName} ${user.lastName}`,
+          createdByUserId: user.id,
+        });
+      }
 
-      setInformationList((prev) => [newInformation, ...prev]);
+      setModalOpen(false);
+      await loadInformation();
+    } catch (error) {
+      console.error("Could not save information:", error);
     }
-
-    setModalOpen(false);
   };
 
-  const handleDelete = (id) => {
-    setInformationList((prev) => prev.filter((item) => item.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await deleteInformation(id);
+      await loadInformation();
+    } catch (error) {
+      console.error("Could not delete information:", error);
+    }
   };
+
+  if (loading) {
+    return <p>Laddar information...</p>;
+  }
 
   return (
     <section className="page dashboard-page">

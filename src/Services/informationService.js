@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:7002/api/information";
+const API_URL = import.meta.env.VITE_INFORMATION_API_URL;
 
 export async function getAllInformation() {
   const response = await axios.get(API_URL);
