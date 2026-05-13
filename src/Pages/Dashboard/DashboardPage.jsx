@@ -8,7 +8,7 @@ import {
   deleteInformation,
   getAllInformation,
   updateInformation,
-} from "../../Services/InformationService.js";
+} from "../../Services/informationService.js";
 import "./DashboardPage.css";
 
 function DashboardPage() {

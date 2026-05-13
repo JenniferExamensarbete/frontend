@@ -4,8 +4,8 @@ import {
   deleteTeamMember,
   getTeamMembers,
   updateTeamMember,
-} from "../../Services/TeamService.js";
-import { getAllProfiles } from "../../Services/ProfileService.js";
+} from "../../Services/teamService.js";
+import { getAllProfiles } from "../../Services/profileService.js";
 import "./TeamPage.css";
 
 function TeamPage() {

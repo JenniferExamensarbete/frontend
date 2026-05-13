@@ -7,7 +7,7 @@ import {
   createProfile,
   getProfile,
   updateProfile,
-} from "../../Services/ProfileService.js";
+} from "../../Services/profileService.js";
 import "./ProfilePage.css";
 
 function ProfilePage() {

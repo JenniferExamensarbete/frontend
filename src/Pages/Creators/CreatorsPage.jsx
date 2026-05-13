@@ -7,7 +7,7 @@ import {
   deleteCreator,
   getAllCreators,
   updateCreator,
-} from "../../Services/CreatorService.js";
+} from "../../Services/creatorService.js";
 import "./CreatorsPage.css";
 
 function CreatorsPage() {
