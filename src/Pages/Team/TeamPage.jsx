@@ -17,17 +17,24 @@ function TeamPage() {
       const teamResult = await getTeamMembers();
       const profileResult = await getAllProfiles();
 
+      console.log("Team result:", teamResult);
+      console.log("Profile result:", profileResult);
+
       const teamMembers = teamResult.result || [];
       const profiles = profileResult.result || [];
 
-      const combinedTeam = teamMembers.map((member) => {
-        const profile = profiles.find(
-          (profile) => profile.authUserId === member.authUserId
+      const combinedTeam = profiles.map((profile) => {
+        const teamMember = teamMembers.find(
+          (member) => member.authUserId === profile.authUserId
         );
 
         return {
-          ...member,
-          profile,
+          id: teamMember?.id || profile.authUserId,
+          authUserId: profile.authUserId,
+          profile: profile,
+          companyRole: teamMember?.companyRole || "Ingen roll satt",
+          systemRole: teamMember?.systemRole || "Employee",
+          active: teamMember?.active ?? true,
         };
       });
 
@@ -78,14 +85,18 @@ function TeamPage() {
       </div>
 
       <section className="team-list">
-        {team.map((member) => (
-          <TeamCard
-            key={member.id}
-            member={member}
-            onToggleActive={handleToggleActive}
-            onDelete={handleDelete}
-          />
-        ))}
+        {team.length > 0 ? (
+          team.map((member) => (
+            <TeamCard
+              key={member.authUserId}
+              member={member}
+              onToggleActive={handleToggleActive}
+              onDelete={handleDelete}
+            />
+          ))
+        ) : (
+          <p>Inga teammedlemmar hittades.</p>
+        )}
       </section>
     </section>
   );
