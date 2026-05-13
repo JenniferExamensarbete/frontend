@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext.jsx";
-import Button from "../../components/Ui/Button.jsx";
-import ProfileModal from "../../components/Modals/ProfileModal.jsx";
-import Badge from "../../components/Ui/Badges.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
+import Button from "../../components/ui/Button.jsx";
+import ProfileModal from "../../components/modals/ProfileModal.jsx";
+import Badge from "../../components/ui/Badges.jsx";
 import {
   createProfile,
   getProfile,

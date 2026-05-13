@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext.jsx";
-import Button from "../../components/Ui/Button.jsx";
-import InformationCard from "../../components/Cards/InformationCard.jsx";
-import InformationModal from "../../components/Modals/InformationModal.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
+import Button from "../../components/ui/Button.jsx";
+import InformationCard from "../../components/cards/InformationCard.jsx";
+import InformationModal from "../../components/modals/InformationModal.jsx";
 import {
   createInformation,
   deleteInformation,

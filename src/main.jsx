@@ -2,11 +2,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-import { AuthProvider } from "./Contexts/AuthContext.jsx";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
-import "./Styles/variables.css";
-import "./Styles/globals.css";
-import "./Styles/utilities.css";
+import "./styles/variables.css";
+import "./styles/globals.css";
+import "./styles/utilities.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

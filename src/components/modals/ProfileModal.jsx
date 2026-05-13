@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 import Modal from "./Modal.jsx";
-import Input from "../Ui/Input.jsx";
-import Button from "../Ui/Button.jsx";
+import Input from "../ui/Input.jsx";
+import Button from "../ui/Button.jsx";
 
 function ProfileModal({ onClose }) {
   const { user, setUser } = useAuth();

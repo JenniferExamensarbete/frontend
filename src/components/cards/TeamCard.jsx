@@ -1,5 +1,5 @@
-import { useAuth } from "../../Contexts/AuthContext.jsx";
-import Badges from "../Ui/Badges.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
+import Badges from "../ui/Badges.jsx";
 import "./TeamCard.css";
 
 function TeamCard({ member, onToggleActive, onDelete }) {

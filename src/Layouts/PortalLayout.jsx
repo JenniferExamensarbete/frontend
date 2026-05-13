@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/Layout/Sidebar.jsx";
-import Topbar from "../components/Layout/Topbar.jsx";
+import Sidebar from "../components/layout/Sidebar.jsx";
+import Topbar from "../components/layout/Topbar.jsx";
 import "./PortalLayout.css";
 
 function PortalLayout() {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TeamCard from "../../components/Cards/TeamCard.jsx";
+import TeamCard from "../../components/cards/TeamCard.jsx";
 import {
   deleteTeamMember,
   getTeamMembers,

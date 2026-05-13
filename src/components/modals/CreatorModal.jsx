@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Modal from "./Modal.jsx";
-import Input from "../Ui/Input.jsx";
-import Textarea from "../Ui/Textarea.jsx";
-import Button from "../Ui/Button.jsx";
+import Input from "../ui/Input.jsx";
+import Textarea from "../ui/Textarea.jsx";
+import Button from "../ui/Button.jsx";
 
 function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
   const [formData, setFormData] = useState({

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext.jsx";
-import Dropdown from "../Ui/Dropdown.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
+import Dropdown from "../ui/Dropdown.jsx";
 import "./Topbar.css";
 
 function Topbar() {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Button from "../../components/Ui/Button.jsx";
-import CreatorCard from "../../components/Cards/CreatorCard.jsx";
-import CreatorModal from "../../components/Modals/CreatorModal.jsx";
+import Button from "../../components/ui/Button.jsx";
+import CreatorCard from "../../components/cards/CreatorCard.jsx";
+import CreatorModal from "../../components/modals/CreatorModal.jsx";
 import {
   createCreator,
   deleteCreator,

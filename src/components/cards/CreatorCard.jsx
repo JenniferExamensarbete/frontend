@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext.jsx";
-import Dropdown from "../Ui/Dropdown.jsx";
-import Badges from "../Ui/Badges.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
+import Dropdown from "../ui/Dropdown.jsx";
+import Badges from "../ui/Badges.jsx";
 import "./CreatorCard.css";
 
 function CreatorCard({ creator, onEdit, onDelete }) {
