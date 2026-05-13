@@ -8,32 +8,37 @@ function TeamCard({ member, onToggleActive, onDelete }) {
   return (
     <article className="card team-card">
       <div className="team-avatar">
-        {member.firstName.charAt(0)}
-        {member.lastName.charAt(0)}
+        {member.companyRole?.charAt(0) || "T"}
       </div>
 
       <div className="team-info">
-        <h3>
-          {member.firstName} {member.lastName}
-        </h3>
-        <p>{member.companyRole}</p>
-        <small>{member.email}</small>
-        <small>{member.phone}</small>
+        <h3>{member.companyRole}</h3>
+        <p>AuthUserId: {member.authUserId}</p>
+        <small>ProfileId: {member.profileId || "Saknas"}</small>
       </div>
 
       <div className="team-meta">
         <Badge variant={member.active ? "success" : "danger"}>
           {member.active ? "Aktiv" : "Inaktiv"}
         </Badge>
+
         <Badge variant="normal">{member.systemRole}</Badge>
       </div>
 
       {isAdmin && (
         <div className="team-actions">
-          <button type="button" onClick={() => onToggleActive(member.id)}>
+          <button
+            type="button"
+            onClick={() => onToggleActive(member.authUserId, member.active)}
+          >
             {member.active ? "Inaktivera" : "Aktivera"}
           </button>
-          <button className="remove" type="button" onClick={() => onDelete(member.id)}>
+
+          <button
+            className="remove"
+            type="button"
+            onClick={() => onDelete(member.authUserId)}
+          >
             Ta bort
           </button>
         </div>

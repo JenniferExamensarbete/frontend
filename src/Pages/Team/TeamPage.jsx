@@ -1,22 +1,58 @@
-import { useState } from "react";
-import { fakeTeam } from "../../data/fakeData.js";
+import { useEffect, useState } from "react";
 import TeamCard from "../../components/cards/TeamCard.jsx";
+import {
+  deleteTeamMember,
+  getTeamMembers,
+  updateTeamMember,
+} from "../../services/teamService.js";
 import "./TeamPage.css";
 
 function TeamPage() {
-  const [team, setTeam] = useState(fakeTeam);
+  const [team, setTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleToggleActive = (id) => {
-    setTeam((prev) =>
-      prev.map((member) =>
-        member.id === id ? { ...member, active: !member.active } : member
-      )
-    );
+  const loadTeam = async () => {
+    try {
+      const result = await getTeamMembers();
+
+      if (result.success) {
+        setTeam(result.result || []);
+      }
+    } catch (error) {
+      console.error("Could not load team:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleDelete = (id) => {
-    setTeam((prev) => prev.filter((member) => member.id !== id));
+  useEffect(() => {
+    loadTeam();
+  }, []);
+
+  const handleToggleActive = async (authUserId, currentActive) => {
+    try {
+      await updateTeamMember(authUserId, {
+        active: !currentActive,
+      });
+
+      await loadTeam();
+    } catch (error) {
+      console.error("Could not update team member:", error);
+    }
   };
+
+  const handleDelete = async (authUserId) => {
+    try {
+      await deleteTeamMember(authUserId);
+      await loadTeam();
+    } catch (error) {
+      console.error("Could not delete team member:", error);
+    }
+  };
+
+  if (loading) {
+    return <p>Laddar team...</p>;
+  }
 
   return (
     <section className="page team-page">
