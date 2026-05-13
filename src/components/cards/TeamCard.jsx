@@ -5,16 +5,34 @@ import "./TeamCard.css";
 function TeamCard({ member, onToggleActive, onDelete }) {
   const { isAdmin } = useAuth();
 
+  const profile = member.profile;
+
+  const firstName = profile?.firstName || "Okänd";
+  const lastName = profile?.lastName || "användare";
+  const email = profile?.email || "Ingen email";
+  const phone = profile?.phone || "Inget telefonnummer";
+  const imageUrl = profile?.imageUrl;
+
   return (
     <article className="card team-card">
       <div className="team-avatar">
-        {member.companyRole?.charAt(0) || "T"}
+        {imageUrl ? (
+          <img src={imageUrl} alt={`${firstName} ${lastName}`} />
+        ) : (
+          <>
+            {firstName.charAt(0)}
+            {lastName.charAt(0)}
+          </>
+        )}
       </div>
 
       <div className="team-info">
-        <h3>{member.companyRole}</h3>
-        <p>AuthUserId: {member.authUserId}</p>
-        <small>ProfileId: {member.profileId || "Saknas"}</small>
+        <h3>
+          {firstName} {lastName}
+        </h3>
+        <p>{member.companyRole}</p>
+        <small>{email}</small>
+        <small>{phone}</small>
       </div>
 
       <div className="team-meta">

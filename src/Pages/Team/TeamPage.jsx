@@ -5,6 +5,7 @@ import {
   getTeamMembers,
   updateTeamMember,
 } from "../../services/teamService.js";
+import { getAllProfiles } from "../../services/profileService.js";
 import "./TeamPage.css";
 
 function TeamPage() {
@@ -13,11 +14,24 @@ function TeamPage() {
 
   const loadTeam = async () => {
     try {
-      const result = await getTeamMembers();
+      const teamResult = await getTeamMembers();
+      const profileResult = await getAllProfiles();
 
-      if (result.success) {
-        setTeam(result.result || []);
-      }
+      const teamMembers = teamResult.result || [];
+      const profiles = profileResult.result || [];
+
+      const combinedTeam = teamMembers.map((member) => {
+        const profile = profiles.find(
+          (profile) => profile.authUserId === member.authUserId
+        );
+
+        return {
+          ...member,
+          profile,
+        };
+      });
+
+      setTeam(combinedTeam);
     } catch (error) {
       console.error("Could not load team:", error);
     } finally {
