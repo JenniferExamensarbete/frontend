@@ -1,14 +1,14 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import PortalLayout from "./layouts/PortalLayout.jsx";
-import ProtectedRoute from "./routes/ProtectedRoute.jsx";
+import PortalLayout from "./Layouts/PortalLayout.jsx";
+import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
 
-import DashboardPage from "./Pages/dashboard/DashboardPage.jsx";
-import TeamPage from "./Pages/team/TeamPage.jsx";
-import CreatorsPage from "./Pages/creators/CreatorsPage.jsx";
-import SchedulePage from "./Pages/schedule/SchedulePage.jsx";
-import ProfilePage from "./Pages/profile/ProfilePage.jsx";
-import LoginPage from "./Pages/login/LoginPage.jsx";
-import SignupPage from "./Pages/signup/SignupPage.jsx";
+import DashboardPage from "./Pages/Dashboard/DashboardPage.jsx";
+import TeamPage from "./Pages/Team/TeamPage.jsx";
+import CreatorsPage from "./Pages/Creators/CreatorsPage.jsx";
+import SchedulePage from "./Pages/Schedule/SchedulePage.jsx";
+import ProfilePage from "./Pages/Profile/ProfilePage.jsx";
+import LoginPage from "./Pages/Login/LoginPage.jsx";
+import SignupPage from "./Pages/Signup/SignupPage.jsx";
 
 function App() {
   return (

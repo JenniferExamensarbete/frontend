@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext.jsx";
-import Input from "../../components/ui/Input.jsx";
-import Button from "../../components/ui/Button.jsx";
+import { useAuth } from "../../Contexts/AuthContext.jsx";
+import Input from "../../components/Ui/Input.jsx";
+import Button from "../../components/Ui/Button.jsx";
 import "./LoginPage.css";
 
 function LoginPage() {

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext.jsx";
-import Button from "../../components/ui/Button.jsx";
-import ProfileModal from "../../components/modals/ProfileModal.jsx";
-import Badge from "../../components/ui/Badge.jsx";
+import { useAuth } from "../../Contexts/AuthContext.jsx";
+import Button from "../../components/Ui/Button.jsx";
+import ProfileModal from "../../components/Modals/ProfileModal.jsx";
+import Badge from "../../components/Ui/Badges.jsx";
 import {
   createProfile,
   getProfile,
   updateProfile,
-} from "../../services/profileService.js";
+} from "../../Services/ProfileService.js";
 import "./ProfilePage.css";
 
 function ProfilePage() {

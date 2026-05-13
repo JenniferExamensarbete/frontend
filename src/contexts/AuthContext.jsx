@@ -4,7 +4,7 @@ import {
   loginUser,
   logoutUser,
   signupUser,
-} from "../services/authService.js";
+} from "../Services/AuthService.js";
 
 const AuthContext = createContext(null);
 

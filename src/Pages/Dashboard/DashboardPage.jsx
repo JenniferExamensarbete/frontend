@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../contexts/AuthContext.jsx";
-import Button from "../../components/ui/Button.jsx";
-import InformationCard from "../../components/cards/InformationCard.jsx";
-import InformationModal from "../../components/modals/InformationModal.jsx";
+import { useAuth } from "../../Contexts/AuthContext.jsx";
+import Button from "../../components/Ui/Button.jsx";
+import InformationCard from "../../components/Cards/InformationCard.jsx";
+import InformationModal from "../../components/Modals/InformationModal.jsx";
 import {
   createInformation,
   deleteInformation,
   getAllInformation,
   updateInformation,
-} from "../../services/informationService.js";
+} from "../../Services/InformationService.js";
 import "./DashboardPage.css";
 
 function DashboardPage() {

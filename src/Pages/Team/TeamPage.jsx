@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import TeamCard from "../../components/cards/TeamCard.jsx";
+import TeamCard from "../../components/Cards/TeamCard.jsx";
 import {
   deleteTeamMember,
   getTeamMembers,
   updateTeamMember,
-} from "../../services/teamService.js";
-import { getAllProfiles } from "../../services/profileService.js";
+} from "../../Services/TeamService.js";
+import { getAllProfiles } from "../../Services/ProfileService.js";
 import "./TeamPage.css";
 
 function TeamPage() {
