@@ -20,11 +20,14 @@ function ProfilePage() {
   const loadProfile = async () => {
     try {
       const result = await getProfile(user.id);
+      console.log("Loaded profile:", result);
 
       if (result.success) {
         setProfile(result.result);
       }
-    } catch {
+    } catch (error) {
+      console.log("Profile not found, creating new profile...");
+
       const newProfile = {
         authUserId: user.id,
         email: user.email,
@@ -35,10 +38,10 @@ function ProfilePage() {
       };
 
       const result = await createProfile(newProfile);
+      console.log("Created profile:", result);
 
       if (result.success) {
-        const loadedProfile = await getProfile(user.id);
-        setProfile(loadedProfile.result);
+        setProfile(result.result || newProfile);
       }
     } finally {
       setLoading(false);
@@ -52,20 +55,32 @@ function ProfilePage() {
   }, [user?.id]);
 
   const handleSaveProfile = async (data) => {
-    const result = await updateProfile(user.id, data);
+    try {
+      const profileData = {
+        ...profile,
+        ...data,
+        authUserId: user.id,
+        email: data.email || user.email,
+      };
 
-    if (result.success) {
-      const updated = await getProfile(user.id);
-      setProfile(updated.result);
+      const result = await updateProfile(user.id, profileData);
+      console.log("Update profile result:", result);
 
-      setUser((prev) => ({
-        ...prev,
-        firstName: updated.result.firstName,
-        lastName: updated.result.lastName,
-        phone: updated.result.phone,
-      }));
+      if (result.success) {
+        setProfile(profileData);
 
-      setModalOpen(false);
+        setUser((prev) => ({
+          ...prev,
+          firstName: profileData.firstName,
+          lastName: profileData.lastName,
+          phone: profileData.phone,
+          email: profileData.email,
+        }));
+
+        setModalOpen(false);
+      }
+    } catch (error) {
+      console.error("Could not update profile:", error);
     }
   };
 
@@ -95,10 +110,10 @@ function ProfilePage() {
 
         <div className="profile-info">
           <h2>
-            {profile?.firstName} {profile?.lastName}
+            {profile?.firstName || "Förnamn"} {profile?.lastName || "Efternamn"}
           </h2>
-          <p>{profile?.email}</p>
-          <p>{profile?.phone}</p>
+          <p>{profile?.email || user?.email}</p>
+          <p>{profile?.phone || "Inget telefonnummer"}</p>
           <Badges variant="normal">{user?.role}</Badges>
         </div>
       </div>
