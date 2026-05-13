@@ -76,9 +76,9 @@ function CreatorCard({ creator, onEdit, onDelete }) {
       </div>
 
       <div className="card-footer">
-        <Badge variant="normal">
+        <Badges variant="normal">
            Uppdaterad {new Date(creator.updatedAt).toLocaleDateString("sv-SE")}
-        </Badge>
+        </Badges>
       </div>
     </article>
   );

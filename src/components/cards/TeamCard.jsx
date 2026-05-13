@@ -36,11 +36,11 @@ function TeamCard({ member, onToggleActive, onDelete }) {
       </div>
 
       <div className="team-meta">
-        <Badge variant={member.active ? "success" : "danger"}>
+        <Badges variant={member.active ? "success" : "danger"}>
           {member.active ? "Aktiv" : "Inaktiv"}
-        </Badge>
+        </Badges>
 
-        <Badge variant="normal">{member.systemRole}</Badge>
+        <Badges variant="normal">{member.systemRole}</Badges>
       </div>
 
       {isAdmin && (

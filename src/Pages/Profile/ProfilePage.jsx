@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Button from "../../components/ui/Button.jsx";
 import ProfileModal from "../../components/modals/ProfileModal.jsx";
-import Badge from "../../components/ui/Badges.jsx";
+import Badges from "../../components/ui/Badges.jsx";
 import {
   createProfile,
   getProfile,
@@ -99,7 +99,7 @@ function ProfilePage() {
           </h2>
           <p>{profile?.email}</p>
           <p>{profile?.phone}</p>
-          <Badge variant="normal">{user?.role}</Badge>
+          <Badges variant="normal">{user?.role}</Badges>
         </div>
       </div>
 
