@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:7003/api/creators";
+const API_URL = import.meta.env.VITE_CREATOR_API_URL;
 
 export async function getAllCreators() {
   const response = await axios.get(API_URL);

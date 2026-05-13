@@ -1,14 +1,38 @@
-import { useState } from "react";
-import { fakeCreators } from "../../data/fakeData.js";
+import { useEffect, useState } from "react";
 import Button from "../../components/ui/Button.jsx";
 import CreatorCard from "../../components/cards/CreatorCard.jsx";
 import CreatorModal from "../../components/modals/CreatorModal.jsx";
+import {
+  createCreator,
+  deleteCreator,
+  getAllCreators,
+  updateCreator,
+} from "../../services/creatorService.js";
 import "./CreatorsPage.css";
 
 function CreatorsPage() {
-  const [creators, setCreators] = useState(fakeCreators);
+  const [creators, setCreators] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingCreator, setEditingCreator] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const loadCreators = async () => {
+    try {
+      const result = await getAllCreators();
+
+      if (result.success) {
+        setCreators(result.result || []);
+      }
+    } catch (error) {
+      console.error("Could not load creators:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCreators();
+  }, []);
 
   const openAddModal = () => {
     setEditingCreator(null);
@@ -20,35 +44,45 @@ function CreatorsPage() {
     setModalOpen(true);
   };
 
-  const handleSave = (data) => {
-    if (editingCreator) {
-      setCreators((prev) =>
-        prev.map((creator) =>
-          creator.id === editingCreator.id
-            ? {
-                ...creator,
-                ...data,
-                updatedAt: new Date().toISOString().slice(0, 10),
-              }
-            : creator
-        )
-      );
-    } else {
-      const newCreator = {
-        ...data,
-        id: Date.now(),
-        updatedAt: new Date().toISOString().slice(0, 10),
-      };
+  const handleSave = async (data) => {
+    try {
+      if (editingCreator) {
+        await updateCreator(editingCreator.id, {
+          name: data.name,
+          age: Number(data.age),
+          location: data.location,
+          interests: data.interests,
+          notes: data.notes,
+        });
+      } else {
+        await createCreator({
+          name: data.name,
+          age: Number(data.age),
+          location: data.location,
+          interests: data.interests,
+          notes: data.notes,
+        });
+      }
 
-      setCreators((prev) => [newCreator, ...prev]);
+      setModalOpen(false);
+      await loadCreators();
+    } catch (error) {
+      console.error("Could not save creator:", error);
     }
-
-    setModalOpen(false);
   };
 
-  const handleDelete = (id) => {
-    setCreators((prev) => prev.filter((creator) => creator.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await deleteCreator(id);
+      await loadCreators();
+    } catch (error) {
+      console.error("Could not delete creator:", error);
+    }
   };
+
+  if (loading) {
+    return <p>Laddar kreatörer...</p>;
+  }
 
   return (
     <section className="page creators-page">
