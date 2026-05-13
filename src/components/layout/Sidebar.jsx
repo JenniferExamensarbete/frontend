@@ -25,7 +25,7 @@ function Sidebar() {
           <span>Kreatörer</span>
         </NavLink>
 
-        <NavLink to="/profil" className="sidebar-link">
+        <NavLink to="/profile" className="sidebar-link">
           <i className="fa-solid fa-user"></i>
           <span>Profil</span>
         </NavLink>

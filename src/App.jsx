@@ -28,7 +28,7 @@ function App() {
         <Route path="team" element={<TeamPage />} />
         <Route path="schema" element={<SchedulePage />} />
         <Route path="kreatorer" element={<CreatorsPage />} />
-        <Route path="profil" element={<ProfilePage />} />
+        <Route path="profile" element={<ProfilePage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
