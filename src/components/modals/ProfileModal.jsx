@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { useAuth } from "../../contexts/AuthContext.jsx";
 import Modal from "./Modal.jsx";
 import Input from "../ui/Input.jsx";
 import Button from "../ui/Button.jsx";
 
-function ProfileModal({ onClose }) {
-  const { user, setUser } = useAuth();
+function ProfileModal({ profile, onClose, onSave }) {
   const [formData, setFormData] = useState({
-    firstName: user?.firstName || "",
-    lastName: user?.lastName || "",
-    email: user?.email || "",
-    phone: user?.phone || "",
+    firstName: profile?.firstName || "",
+    lastName: profile?.lastName || "",
+    email: profile?.email || "",
+    phone: profile?.phone || "",
+    imageUrl: profile?.imageUrl || "",
   });
 
   const handleChange = (e) => {
@@ -18,10 +17,9 @@ function ProfileModal({ onClose }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setUser((prev) => ({ ...prev, ...formData }));
-    onClose();
+    await onSave(formData);
   };
 
   return (
@@ -33,12 +31,14 @@ function ProfileModal({ onClose }) {
           value={formData.firstName}
           onChange={handleChange}
         />
+
         <Input
           label="Efternamn"
           name="lastName"
           value={formData.lastName}
           onChange={handleChange}
         />
+
         <Input
           label="Email"
           name="email"
@@ -46,6 +46,7 @@ function ProfileModal({ onClose }) {
           onChange={handleChange}
           type="email"
         />
+
         <Input
           label="Telefonnummer"
           name="phone"
