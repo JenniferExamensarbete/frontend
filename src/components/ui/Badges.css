@@ -1,11 +1,13 @@
 .badge {
   border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 800;
   padding: 0.45rem 0.8rem;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .badge-normal {
@@ -26,4 +28,9 @@
 .badge-danger {
   background-color: var(--red-light);
   color: var(--red-dark);
+}
+
+.badge-blue {
+  background-color: var(--blue-accent-10);
+  color: var(--blue-accent);
 }
