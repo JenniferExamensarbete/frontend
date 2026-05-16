@@ -2,7 +2,8 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background-color: var(--modal-background-color);
+  background-color: rgba(26, 25, 38, 0.35);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,20 +15,45 @@
   max-width: 560px;
   max-height: 90vh;
   overflow-y: auto;
+  animation: modalFadeIn 0.22s ease;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.modal-header h2,
+.modal-header h3 {
+  margin: 0;
 }
 
 .modal-close {
-  background-color: var(--gray-200);
+  border: none;
+  background-color: var(--white-200);
   color: var(--dark-400);
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background-color: var(--red-light);
+  color: var(--red-dark);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
