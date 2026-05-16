@@ -1,7 +1,10 @@
-
 * {
   box-sizing: border-box;
   text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -11,6 +14,10 @@ body {
   font-family: var(--font-standard);
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+body {
+  overflow-x: hidden;
 }
 
 a {
@@ -25,9 +32,17 @@ select {
   font-family: inherit;
 }
 
-
 button {
   border: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--blue-accent-10);
+  outline-offset: 3px;
 }
 
 h1,
@@ -41,12 +56,12 @@ h6 {
 }
 
 p {
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .page {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.7rem;
 }
 
 .page-header {
@@ -54,17 +69,22 @@ p {
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.page-header h1 {
+  letter-spacing: -0.03em;
 }
 
 .page-header p {
-  margin: 0.4rem 0 0;
+  margin: 0.45rem 0 0;
   color: var(--text-muted-color);
 }
 
 .grid-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .status-row {
@@ -72,18 +92,31 @@ p {
   align-items: center;
   gap: 1rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.7rem;
 }
 
 .status-row a {
+  position: relative;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-muted-color);
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .status-row a:hover {
   color: var(--blue-accent);
+}
+
+.status-row a:hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.75rem;
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
+  background-color: var(--blue-accent);
 }
 
 @media (max-width: 1400px) {
