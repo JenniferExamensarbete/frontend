@@ -6,7 +6,7 @@ function Sidebar() {
     <aside className="sidebar">
       <nav className="sidebar-nav">
         <NavLink to="/" end className="sidebar-link">
-          <i className="fa-solid fa-chart-line"></i>
+         <i class="fa-solid fa-house-user"></i>
           <span>Dashboard</span>
         </NavLink>
 
