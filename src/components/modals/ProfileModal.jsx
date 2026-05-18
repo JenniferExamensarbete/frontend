@@ -54,6 +54,14 @@ function ProfileModal({ profile, onClose, onSave }) {
           onChange={handleChange}
         />
 
+        <Input
+          label="Bild-URL"
+          name="imageUrl"
+          value={formData.imageUrl}
+          onChange={handleChange}
+          placeholder="https://..."
+        />
+
         <Button type="submit">Spara profil</Button>
       </form>
     </Modal>

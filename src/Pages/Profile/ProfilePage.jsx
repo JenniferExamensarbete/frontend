@@ -104,8 +104,17 @@ function ProfilePage() {
 
       <div className="profile-card card">
         <div className="profile-avatar-large">
-          {profile?.firstName?.charAt(0)}
-          {profile?.lastName?.charAt(0)}
+          {profile?.imageUrl ? (
+            <img 
+            src={profile.imageUrl} 
+            alt={`${profile.firstName} ${profile.lastName}`}
+            />
+          ) : (
+            <>
+            {profile?.firstName?.charAt(0)}
+            {profile?.lastName?.charAt(0)}
+            </>
+          )}
         </div>
 
         <div className="profile-info">
