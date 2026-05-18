@@ -31,10 +31,10 @@ function ProfilePage() {
       const newProfile = {
         authUserId: user.id,
         email: user.email,
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        phone: user.phone || "",
-        imageUrl: "",
+        firstName: user.firstName || null,
+        lastName: user.lastName || null,
+        phone: user.phone || null,
+        imageUrl: null,
       };
 
       const result = await createProfile(newProfile);
@@ -57,11 +57,16 @@ function ProfilePage() {
   const handleSaveProfile = async (data) => {
     try {
       const profileData = {
-        ...profile,
-        ...data,
-        authUserId: user.id,
-        email: data.email || user.email,
-      };
+      ...profile,
+      ...data,
+      authUserId: user.id,
+      email: data.email || user.email,
+      firstName: data.firstName?.trim() || null,
+      lastName: data.lastName?.trim() || null,
+      phone: data.phone?.trim() || null,
+      imageUrl: data.imageUrl?.trim() || null,
+    };
+        
 
       const result = await updateProfile(user.id, profileData);
       console.log("Update profile result:", result);

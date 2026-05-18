@@ -36,4 +36,13 @@ export async function logoutUser() {
   );
 
   return response.data;
+
+}
+
+export async function deleteAuthUser(authUserId) {
+  const response = await axios.delete(`${API_URL}/${authUserId}`, {
+    withCredentials: true,
+  });
+
+  return response.data;
 }

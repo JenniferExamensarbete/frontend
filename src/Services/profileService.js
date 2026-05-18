@@ -21,3 +21,9 @@ export async function updateProfile(authUserId, data) {
   const response = await axios.put(`${API_URL}/${authUserId}`, data);
   return response.data;
 }
+
+export async function deleteProfile(authUserId) {
+  const response = await axios.delete(`${API_URL}/${authUserId}`);
+
+  return response.data;
+}
