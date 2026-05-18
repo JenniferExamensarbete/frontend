@@ -46,25 +46,23 @@ function CreatorsPage() {
 
   const handleSave = async (data) => {
     try {
+      const creatorData = {
+        name: data.name,
+        age: Number(data.age),
+        location: data.location,
+        interests: data.interests,
+        notes: data.notes,
+        imageUrl: data.imageUrl,
+      };
+
       if (editingCreator) {
-        await updateCreator(editingCreator.id, {
-          name: data.name,
-          age: Number(data.age),
-          location: data.location,
-          interests: data.interests,
-          notes: data.notes,
-        });
+        await updateCreator(editingCreator.id, creatorData);
       } else {
-        await createCreator({
-          name: data.name,
-          age: Number(data.age),
-          location: data.location,
-          interests: data.interests,
-          notes: data.notes,
-        });
+        await createCreator(creatorData);
       }
 
       setModalOpen(false);
+      setEditingCreator(null);
       await loadCreators();
     } catch (error) {
       console.error("Could not save creator:", error);
@@ -118,7 +116,10 @@ function CreatorsPage() {
         <CreatorModal
           mode={editingCreator ? "edit" : "add"}
           initialData={editingCreator}
-          onClose={() => setModalOpen(false)}
+          onClose={() => {
+            setModalOpen(false);
+            setEditingCreator(null);
+          }}
           onSave={handleSave}
         />
       )}

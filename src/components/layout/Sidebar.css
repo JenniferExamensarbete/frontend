@@ -3,11 +3,26 @@
   background: linear-gradient(180deg, var(--white-100), var(--white-200));
   border-right: 1px solid var(--border-color);
   padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-nav {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
   gap: 0.45rem;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
 }
 
 .sidebar-link {
@@ -48,4 +63,8 @@
   height: 60%;
   border-radius: 999px;
   background-color: var(--blue-accent);
+}
+
+.admin-link {
+  opacity: 0.95;
 }
