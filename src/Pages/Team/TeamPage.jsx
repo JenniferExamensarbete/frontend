@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import TeamCard from "../../components/cards/TeamCard.jsx";
 import {
+  deleteProfile,
+  getAllProfiles,
+} from "../../Services/profileService.js";
+import { deleteAuthUser } from "../../Services/authService.js";
+import {
   deleteTeamMember,
   getTeamMembers,
   updateTeamMember,
 } from "../../Services/teamService.js";
-import { getAllProfiles } from "../../Services/profileService.js";
 import "./TeamPage.css";
 
 function TeamPage() {
@@ -17,24 +21,17 @@ function TeamPage() {
       const teamResult = await getTeamMembers();
       const profileResult = await getAllProfiles();
 
-      console.log("Team result:", teamResult);
-      console.log("Profile result:", profileResult);
-
       const teamMembers = teamResult.result || [];
       const profiles = profileResult.result || [];
 
-      const combinedTeam = profiles.map((profile) => {
-        const teamMember = teamMembers.find(
-          (member) => member.authUserId === profile.authUserId
+      const combinedTeam = teamMembers.map((member) => {
+        const profile = profiles.find(
+          (profile) => profile.authUserId === member.authUserId
         );
 
         return {
-          id: teamMember?.id || profile.authUserId,
-          authUserId: profile.authUserId,
-          profile: profile,
-          companyRole: teamMember?.companyRole || "Ingen roll satt",
-          systemRole: teamMember?.systemRole || "Employee",
-          active: teamMember?.active ?? true,
+          ...member,
+          profile,
         };
       });
 
@@ -63,11 +60,20 @@ function TeamPage() {
   };
 
   const handleDelete = async (authUserId) => {
+    const confirmed = window.confirm(
+      "Är du säker på att du vill ta bort användaren helt? Detta tar bort konto, profil och teamkoppling."
+    );
+
+    if (!confirmed) return;
+
     try {
       await deleteTeamMember(authUserId);
+      await deleteProfile(authUserId);
+      await deleteAuthUser(authUserId);
+
       await loadTeam();
     } catch (error) {
-      console.error("Could not delete team member:", error);
+      console.error("Could not delete user completely:", error);
     }
   };
 

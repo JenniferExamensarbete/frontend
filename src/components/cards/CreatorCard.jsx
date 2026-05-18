@@ -52,7 +52,15 @@ function CreatorCard({ creator, onEdit, onDelete }) {
                 <button
                   className="dropdown-action remove"
                   type="button"
-                  onClick={() => onDelete(creator.id)}
+                  onClick={() => {
+                    const confirmed = window.confirm(
+                    `Är du säker på att du vill ta bort ${creator.name}?`
+                   );
+
+                   if (confirmed) {
+                    onDelete(creator.id);
+                   }
+                 }}
                 >
                   <i className="fa-solid fa-trash-can"></i>
                   Ta bort

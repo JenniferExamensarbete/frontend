@@ -55,7 +55,15 @@ function TeamCard({ member, onToggleActive, onDelete }) {
           <button
             className="remove"
             type="button"
-            onClick={() => onDelete(member.authUserId)}
+          onClick={() => {
+              const confirmed = window.confirm(
+                `Är du säker på att du vill ta bort ${firstName} ${lastName}?`
+              );
+
+              if (confirmed) {
+                onDelete(member.authUserId);
+              }
+            }}
           >
             Ta bort
           </button>

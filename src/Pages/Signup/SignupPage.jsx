@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Input from "../../components/ui/Input.jsx";
 import Button from "../../components/ui/Button.jsx";
+import { createTeamMember } from "../../Services/teamService.js";
+import { createProfile } from "../../Services/profileService.js";
 import "./SignupPage.css";
 
 function SignupPage() {
@@ -40,12 +42,42 @@ function SignupPage() {
     setLoading(true);
 
     try {
-      await signup(formData);
+         const result = await signup(formData);
 
-      setSuccess("Konto skapat! Du kan nu logga in.");
+          const createdUser = result?.user;
+
+          if (!createdUser?.id) {
+            throw new Error("Konto skapades men användar-id saknas.");
+          }
+
+          await createProfile({
+            authUserId: createdUser.id,
+            email: createdUser.email,
+            firstName: createdUser.firstName || null,
+            lastName: createdUser.lastName || null,
+            phone: null,
+            imageUrl: null,
+          });
+
+          await createTeamMember({
+            authUserId: createdUser.id,
+            companyRole: "Ingen roll satt",
+            systemRole: createdUser.role || "Employee",
+            active: true,
+          });
+
+      setSuccess("Konto skapat och användaren är tillagd i teamet!");
+
+      setFormData({
+        email: "",
+        password: "",
+        confirmPassword: "",
+        firstName: "",
+        lastName: "",
+      });
 
       setTimeout(() => {
-        navigate("/login");
+        navigate("/team");
       }, 1000);
     } catch (error) {
       console.error(error);
@@ -58,6 +90,8 @@ function SignupPage() {
         setErrors(validationErrors);
       } else if (error.response?.data?.error) {
         setErrors([error.response.data.error]);
+      } else if (error.message) {
+        setErrors([error.message]);
       } else {
         setErrors(["Kunde inte skapa konto."]);
       }
@@ -71,7 +105,7 @@ function SignupPage() {
       <section className="auth-card card">
         <div className="auth-header">
           <h1>Skapa konto</h1>
-          <p>Registrera dig för att komma åt adminportalen.</p>
+          <p>Skapa ett konto för en ny användare.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
