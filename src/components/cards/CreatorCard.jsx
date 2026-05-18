@@ -8,11 +8,17 @@ function CreatorCard({ creator, onEdit, onDelete }) {
   const [open, setOpen] = useState(false);
   const { isAdmin } = useAuth();
 
+  const imageUrl = creator?.imageUrl;
+
   return (
     <article className="card creator-card">
       <div className="card-header creator-header">
         <div className="creator-avatar">
-          {creator.name?.charAt(0)}
+          {imageUrl ? (
+            <img src={imageUrl} alt={creator.name} />
+          ) : (
+            creator.name?.charAt(0)
+          )}
         </div>
 
         <div>
@@ -77,7 +83,7 @@ function CreatorCard({ creator, onEdit, onDelete }) {
 
       <div className="card-footer">
         <Badges variant="normal">
-           Uppdaterad {new Date(creator.updatedAt).toLocaleDateString("sv-SE")}
+          Uppdaterad {new Date(creator.updatedAt).toLocaleDateString("sv-SE")}
         </Badges>
       </div>
     </article>

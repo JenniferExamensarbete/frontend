@@ -11,6 +11,7 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
     location: "",
     interests: "",
     notes: "",
+    imageUrl: "",
   });
 
   useEffect(() => {
@@ -21,6 +22,7 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
         location: initialData.location || "",
         interests: initialData.interests || "",
         notes: initialData.notes || "",
+        imageUrl: initialData.imageUrl || "",
       });
     }
   }, [initialData]);
@@ -42,6 +44,7 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
     >
       <form onSubmit={handleSubmit}>
         <Input label="Namn" name="name" value={formData.name} onChange={handleChange} />
+
         <Input
           label="Ålder"
           name="age"
@@ -49,18 +52,29 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
           onChange={handleChange}
           type="number"
         />
+
         <Input label="Bor" name="location" value={formData.location} onChange={handleChange} />
+
         <Textarea
           label="Intressen"
           name="interests"
           value={formData.interests}
           onChange={handleChange}
         />
+
         <Textarea
           label="Övrigt / ny information"
           name="notes"
           value={formData.notes}
           onChange={handleChange}
+        />
+
+        <Input
+          label="Bild URL"
+          name="imageUrl"
+          value={formData.imageUrl}
+          onChange={handleChange}
+          placeholder="https://..."
         />
 
         <Button type="submit">
