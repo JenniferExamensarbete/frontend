@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import Input from "../../components/ui/Input.jsx";
 import Button from "../../components/ui/Button.jsx";
@@ -14,7 +14,7 @@ function LoginPage() {
     password: "",
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -24,19 +24,33 @@ function LoginPage() {
       ...prev,
       [name]: value,
     }));
+
+    setErrors([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setError("");
+    setErrors([]);
     setLoading(true);
 
     try {
       await login(formData.email, formData.password);
       navigate("/");
-    } catch (err) {
-      setError("Fel email eller lösenord.");
+    } catch (error) {
+      console.error(error);
+
+      if (error.response?.data?.errors) {
+        const validationErrors = Object.values(
+          error.response.data.errors
+        ).flat();
+
+        setErrors(validationErrors);
+      } else if (error.response?.data?.error) {
+        setErrors([error.response.data.error]);
+      } else {
+        setErrors(["Fel email eller lösenord."]);
+      }
     } finally {
       setLoading(false);
     }
@@ -69,7 +83,13 @@ function LoginPage() {
             placeholder="Ditt lösenord"
           />
 
-          {error && <p className="auth-error">{error}</p>}
+          {errors.length > 0 && (
+            <div className="form-errors">
+              {errors.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
 
           <Button type="submit">
             {loading ? "Loggar in..." : "Logga in"}

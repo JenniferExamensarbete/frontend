@@ -17,7 +17,7 @@ function SignupPage() {
     lastName: "",
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState([]);
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -28,24 +28,39 @@ function SignupPage() {
       ...prev,
       [name]: value,
     }));
+
+    setErrors([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setError("");
+    setErrors([]);
     setSuccess("");
     setLoading(true);
 
     try {
       await signup(formData);
+
       setSuccess("Konto skapat! Du kan nu logga in.");
 
       setTimeout(() => {
         navigate("/login");
       }, 1000);
-    } catch (err) {
-      setError("Kunde inte skapa konto. Kontrollera uppgifterna.");
+    } catch (error) {
+      console.error(error);
+
+      if (error.response?.data?.errors) {
+        const validationErrors = Object.values(
+          error.response.data.errors
+        ).flat();
+
+        setErrors(validationErrors);
+      } else if (error.response?.data?.error) {
+        setErrors([error.response.data.error]);
+      } else {
+        setErrors(["Kunde inte skapa konto."]);
+      }
     } finally {
       setLoading(false);
     }
@@ -103,7 +118,14 @@ function SignupPage() {
             placeholder="Bekräfta lösenord"
           />
 
-          {error && <p className="auth-error">{error}</p>}
+          {errors.length > 0 && (
+            <div className="form-errors">
+              {errors.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
+
           {success && <p className="auth-success">{success}</p>}
 
           <Button type="submit">

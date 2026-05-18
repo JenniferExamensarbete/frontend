@@ -14,6 +14,8 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
     imageUrl: "",
   });
 
+  const [errors, setErrors] = useState([]);
+
   useEffect(() => {
     if (initialData) {
       setFormData({
@@ -29,12 +31,33 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors([]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSave(formData);
+
+    try {
+      setErrors([]);
+      await onSave(formData);
+    } catch (error) {
+      console.error(error);
+
+      if (error.response?.data?.errors) {
+        const validationErrors = Object.values(error.response.data.errors).flat();
+        setErrors(validationErrors);
+      } else if (error.response?.data?.error) {
+        setErrors([error.response.data.error]);
+      } else {
+        setErrors(["Något gick fel. Kontrollera uppgifterna och försök igen."]);
+      }
+    }
   };
 
   return (
@@ -43,7 +66,12 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
       onClose={onClose}
     >
       <form onSubmit={handleSubmit}>
-        <Input label="Namn" name="name" value={formData.name} onChange={handleChange} />
+        <Input
+          label="Namn"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
 
         <Input
           label="Ålder"
@@ -53,7 +81,12 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
           type="number"
         />
 
-        <Input label="Bor" name="location" value={formData.location} onChange={handleChange} />
+        <Input
+          label="Bor"
+          name="location"
+          value={formData.location}
+          onChange={handleChange}
+        />
 
         <Textarea
           label="Intressen"
@@ -76,6 +109,14 @@ function CreatorModal({ mode = "add", initialData, onClose, onSave }) {
           onChange={handleChange}
           placeholder="https://..."
         />
+
+        {errors.length > 0 && (
+          <div className="form-errors">
+            {errors.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
+        )}
 
         <Button type="submit">
           <i className="fa-solid fa-floppy-disk"></i>
