@@ -36,7 +36,6 @@ function CreatorCard({ creator, onEdit, onDelete }) {
           </button>
 
         <Dropdown open={open} onClose={() => setOpen(false)}>
->
             <button
               className="dropdown-action"
               type="button"

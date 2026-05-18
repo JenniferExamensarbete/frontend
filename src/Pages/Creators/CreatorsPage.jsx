@@ -65,7 +65,7 @@ function CreatorsPage() {
       setEditingCreator(null);
       await loadCreators();
     } catch (error) {
-      console.error("Could not save creator:", error);
+      throw error;
     }
   };
 

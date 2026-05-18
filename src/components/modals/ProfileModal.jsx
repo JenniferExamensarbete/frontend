@@ -12,14 +12,40 @@ function ProfileModal({ profile, onClose, onSave }) {
     imageUrl: profile?.imageUrl || "",
   });
 
+  const [errors, setErrors] = useState([]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await onSave(formData);
+
+    try {
+      setErrors([]);
+      await onSave(formData);
+    } catch (error) {
+      console.error(error);
+
+      if (error.response?.data?.errors) {
+        const validationErrors = Object.values(
+          error.response.data.errors
+        ).flat();
+
+        setErrors(validationErrors);
+      } else if (error.response?.data?.error) {
+        setErrors([error.response.data.error]);
+      } else {
+        setErrors(["Något gick fel. Försök igen."]);
+      }
+    }
   };
 
   return (
@@ -61,6 +87,14 @@ function ProfileModal({ profile, onClose, onSave }) {
           onChange={handleChange}
           placeholder="https://..."
         />
+
+        {errors.length > 0 && (
+          <div className="form-errors">
+            {errors.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
+        )}
 
         <Button type="submit">Spara profil</Button>
       </form>
