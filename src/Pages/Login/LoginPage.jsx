@@ -47,7 +47,7 @@ function LoginPage() {
       <section className="auth-card card">
         <div className="auth-header">
           <h1>Logga in</h1>
-          <p>Välkommen tillbaka till adminportalen.</p>
+          <p>Välkommen till adminportalen.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -77,7 +77,7 @@ function LoginPage() {
         </form>
 
         <p className="auth-link">
-          Har du inget konto? <Link to="/signup">Skapa konto</Link>
+          Kontakta admin för att få ett konto.
         </p>
       </section>
     </main>

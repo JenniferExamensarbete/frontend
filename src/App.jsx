@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import PortalLayout from "./Layouts/PortalLayout.jsx";
 import ProtectedRoute from "./Routes/ProtectedRoute.jsx";
-
+import AdminRoute from "./Routes/AdminRoute.jsx";
 import DashboardPage from "./Pages/Dashboard/DashboardPage.jsx";
 import TeamPage from "./Pages/Team/TeamPage.jsx";
 import CreatorsPage from "./Pages/Creators/CreatorsPage.jsx";
@@ -14,8 +14,16 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+     <Route path="/signup" element={
+      <ProtectedRoute>
+        <AdminRoute>
+          <SignupPage />
+        </AdminRoute>
+      </ProtectedRoute>
+     } 
+     
 
+     />
       <Route
         path="/"
         element={
