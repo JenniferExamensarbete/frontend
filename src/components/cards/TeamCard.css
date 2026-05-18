@@ -103,3 +103,24 @@
     justify-content: flex-start;
   }
 }
+
+.team-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dbeafe;
+  color: #3b82f6;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
