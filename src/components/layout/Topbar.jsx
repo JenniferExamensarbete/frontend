@@ -28,7 +28,7 @@ function Topbar() {
             <span>{user?.firstName?.charAt(0) || "U"}</span>
           </button>
 
-          <Dropdown open={open}>
+           <Dropdown open={open} onClose={() => setOpen(false)}>
             <div className="account-info">
               <strong>
                 {user?.firstName} {user?.lastName}

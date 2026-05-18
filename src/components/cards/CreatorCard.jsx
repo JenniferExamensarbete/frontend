@@ -35,7 +35,8 @@ function CreatorCard({ creator, onEdit, onDelete }) {
             <i className="fa-solid fa-ellipsis"></i>
           </button>
 
-          <Dropdown open={open}>
+        <Dropdown open={open} onClose={() => setOpen(false)}>
+>
             <button
               className="dropdown-action"
               type="button"
